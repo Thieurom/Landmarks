@@ -1,0 +1,78 @@
+//
+//  LandmarkDetailView.swift
+//  
+//
+//  Created by Doan Le Thieu on 28/01/2023.
+//
+
+import ComposableArchitecture
+import SwiftUI
+
+public struct LandmarkDetailView: View {
+
+    let store: StoreOf<LandmarkDetail>
+
+    public init(store: StoreOf<LandmarkDetail>) {
+        self.store = store
+    }
+
+    public var body: some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            ScrollView {
+                MapView(coordinates: viewStore.landmark.coordinates)
+                    .frame(height: 300)
+
+                Image(viewStore.landmark.imageName, bundle: .module)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 250, height: 250)
+                    .shadowedCicle()
+                    .offset(y: -130)
+                    .padding(.bottom, -130)
+
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text(viewStore.landmark.name)
+                            .font(.title)
+
+                        Button {
+                            viewStore.send(.favoriteButtonTapped)
+                        } label:{
+                            Label("Toggle Favorite", systemImage: "star.fill")
+                                .labelStyle(.iconOnly)
+                                .foregroundColor(.yellow)
+                        }
+                    }
+
+                    HStack {
+                        Text(viewStore.landmark.park)
+                            .font(.subheadline)
+                        Spacer()
+                        Text(viewStore.landmark.state)
+                            .font(.subheadline)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                    Divider()
+
+                    Text("About Turtle Rock")
+                        .font(.title2)
+                    Text(viewStore.landmark.description)
+                }
+                .padding()
+            }
+        }
+    }
+}
+
+struct LandmarkDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        LandmarkDetailView(
+            store: Store(
+                initialState: LandmarkDetail.State(landmark: .example),
+                reducer: LandmarkDetail()
+            )
+        )
+    }
+}
