@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import LandmarkDetail
+import Models
 import SwiftUI
 
 public struct LandmarkListView: View {
@@ -52,7 +53,7 @@ struct LandmarkListView_Previews: PreviewProvider {
     static var previews: some View {
         LandmarkListView(
             store: Store(
-                initialState: LandmarkList.State(),
+                initialState: LandmarkList.State(landmarks: Landmark.sampleData),
                 reducer: LandmarkList()
             )
         )

@@ -6,25 +6,42 @@
 //
 
 import ComposableArchitecture
+import Dependencies
 import LandmarkList
 import SwiftUI
 
 public struct AppView: View {
 
-    public init() {}
+    private let store: StoreOf<AppFeature>
+
+    public init(store: StoreOf<AppFeature>) {
+        self.store = store
+    }
 
     public var body: some View {
         LandmarkListView(
-            store: Store(
-                initialState: LandmarkList.State(),
-                reducer: LandmarkList()
+            store: store.scope(
+                state: \.landmarkList,
+                action: AppFeature.Action.landmarkList
             )
         )
+        .onAppear {
+            ViewStore(store).send(.onAppear)
+        }
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView()
+        AppView(
+            store: Store(
+                initialState: AppFeature.State(dataPath: "", dataBundle: .main),
+                reducer: withDependencies {
+                    $0.dataManager = .mock
+                } operation: {
+                    AppFeature()
+                }
+            )
+        )
     }
 }

@@ -7,6 +7,7 @@
 
 import Assets
 import ComposableArchitecture
+import Models
 import SwiftUI
 
 public struct LandmarkDetailView: View {
@@ -39,9 +40,9 @@ public struct LandmarkDetailView: View {
                         Button {
                             viewStore.send(.favoriteButtonTapped)
                         } label:{
-                            Label("Toggle Favorite", systemImage: "star.fill")
+                            Label("Toggle Favorite", systemImage: viewStore.landmark.isFavorite ?  "star.fill" : "star")
                                 .labelStyle(.iconOnly)
-                                .foregroundColor(.yellow)
+                                .foregroundColor(viewStore.landmark.isFavorite ? .yellow : .gray)
                         }
                     }
 
@@ -73,7 +74,7 @@ struct LandmarkDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LandmarkDetailView(
             store: Store(
-                initialState: LandmarkDetail.State(landmark: .example),
+                initialState: LandmarkDetail.State(landmark: .sampleData[0]),
                 reducer: LandmarkDetail()
             )
         )

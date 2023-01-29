@@ -31,7 +31,7 @@ struct MapView: View {
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView(
             coordinates: Coordinates(

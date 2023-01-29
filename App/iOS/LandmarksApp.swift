@@ -6,13 +6,19 @@
 //
 
 import AppFeature
+import ComposableArchitecture
 import SwiftUI
 
 @main
 struct LandmarksApp: App {
     var body: some Scene {
         WindowGroup {
-            AppView()
+            AppView(
+                store: Store(
+                    initialState: AppFeature.State(dataPath: "landmarkData.json", dataBundle: .main),
+                    reducer: AppFeature()
+                )
+            )
         }
     }
 }

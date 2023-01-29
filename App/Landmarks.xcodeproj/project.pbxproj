@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D82D4669297E27E2009A0161 /* LandmarksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82D4668297E27E2009A0161 /* LandmarksApp.swift */; };
 		D82D466D297E27E4009A0161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D82D466C297E27E4009A0161 /* Assets.xcassets */; };
+		D84BBF2E29861C0100922FB0 /* landmarkData.json in Resources */ = {isa = PBXBuildFile; fileRef = D84BBF2D29861C0100922FB0 /* landmarkData.json */; };
 		D8AA30C52984C82500AFE0F1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8AA30C42984C82500AFE0F1 /* AppFeature */; };
 /* End PBXBuildFile section */
 
@@ -16,6 +17,7 @@
 		D82D4665297E27E2009A0161 /* Landmarks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Landmarks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D82D4668297E27E2009A0161 /* LandmarksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarksApp.swift; sourceTree = "<group>"; };
 		D82D466C297E27E4009A0161 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D84BBF2D29861C0100922FB0 /* landmarkData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = landmarkData.json; sourceTree = "<group>"; };
 		D8AA30C22984C6EA00AFE0F1 /* Landmarks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Landmarks-Info.plist"; sourceTree = "<group>"; };
 		D8AA30C32984C81E00AFE0F1 /* Landmarks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Landmarks; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				D82D4668297E27E2009A0161 /* LandmarksApp.swift */,
+				D84BBF2D29861C0100922FB0 /* landmarkData.json */,
 				D82D466C297E27E4009A0161 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -129,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D82D466D297E27E4009A0161 /* Assets.xcassets in Resources */,
+				D84BBF2E29861C0100922FB0 /* landmarkData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,8 +32,10 @@ struct LandmarkRow: View {
 
             Spacer()
 
-            Image(systemName: "star.fill")
-                .foregroundColor(.yellow)
+            if landmark.isFavorite {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+            }
         }
         .padding(.vertical, 4)
     }
@@ -41,6 +43,10 @@ struct LandmarkRow: View {
 
 struct LandmarkRow_Previews: PreviewProvider {
     static var previews: some View {
-        LandmarkRow(landmark: .example)
+        Group {
+            LandmarkRow(landmark: .sampleData[0])
+            LandmarkRow(landmark: .sampleData[1])
+        }
+        .padding()
     }
 }

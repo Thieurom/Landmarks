@@ -17,15 +17,14 @@ public struct LandmarkList: ReducerProtocol {
         public var landmarks: IdentifiedArrayOf<Landmark>
         public var selectedLandmark: Identified<Landmark.ID, LandmarkDetail.State>?
 
-        public init() {
-            self.landmarks = [Landmark.example]
-            self.selectedLandmark = nil
+        public init(landmarks: [Landmark] = []) {
+            self.landmarks = .init(uniqueElements: landmarks)
         }
     }
 
     public enum Action {
-        case landmark(LandmarkDetail.Action)
         case setNavigation(selection: Int?)
+        case landmark(LandmarkDetail.Action)
     }
 
     public var body: some ReducerProtocol<State, Action> {
