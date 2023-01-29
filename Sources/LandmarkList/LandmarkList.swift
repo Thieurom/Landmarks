@@ -42,6 +42,17 @@ public struct LandmarkList: ReducerProtocol {
             case .setNavigation(selection: .none):
                 state.selectedLandmark = nil
                 return .none
+            case .landmark(.favoriteButtonTapped):
+                let updatedLandmarks = state.landmarks.map { landmark in
+                    var copy = landmark
+                    if let selectedLandmark = state.selectedLandmark?.landmark,
+                       copy.id == selectedLandmark.id {
+                        copy.isFavorite = selectedLandmark.isFavorite
+                    }
+                    return copy
+                }
+                state.landmarks = .init(uniqueElements: updatedLandmarks)
+                return .none
             case .landmark:
                 return .none
             }

@@ -28,6 +28,7 @@ public struct LandmarkDetail: ReducerProtocol {
     public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .favoriteButtonTapped:
+            state.landmark.isFavorite.toggle()
             return .none
         }
     }

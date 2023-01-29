@@ -19,14 +19,22 @@ public struct AppView: View {
     }
 
     public var body: some View {
-        LandmarkListView(
-            store: store.scope(
-                state: \.landmarkList,
-                action: AppFeature.Action.landmarkList
-            )
-        )
-        .onAppear {
-            ViewStore(store).send(.onAppear)
+        WithViewStore(store, observe: \.selectedTab) { viewStore in
+            TabView(selection: viewStore.binding(send: AppFeature.Action.tabSelected)) {
+                LandmarkListView(
+                    store: store.scope(
+                        state: \.landmarkList,
+                        action: AppFeature.Action.landmarkList
+                    )
+                )
+                .tabItem {
+                    Label("List", systemImage: "list.bullet")
+                }
+                .tag(AppFeature.State.Tab.list)
+            }
+            .onAppear {
+                viewStore.send(.onAppear)
+            }
         }
     }
 }

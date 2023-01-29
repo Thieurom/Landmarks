@@ -17,9 +17,14 @@ public struct AppFeature: ReducerProtocol {
 
     public struct State: Equatable {
 
+        public enum Tab {
+            case list
+        }
+
         public let dataPath: String
         public let dataBundle: Bundle
         public var landmarks: [Landmark] = []
+        public var selectedTab = Tab.list
 
         private var _landmarkList: LandmarkList.State = .init()
         public var landmarkList: LandmarkList.State {
@@ -29,6 +34,7 @@ public struct AppFeature: ReducerProtocol {
                 return copy
             }
             set {
+                landmarks = newValue.landmarks.elements
                 _landmarkList = newValue
             }
         }
@@ -41,6 +47,7 @@ public struct AppFeature: ReducerProtocol {
 
     public enum Action {
         case onAppear
+        case tabSelected(State.Tab)
         case loadLandmarksResponse(TaskResult<[Landmark]>)
         case landmarkList(LandmarkList.Action)
     }
@@ -60,6 +67,9 @@ public struct AppFeature: ReducerProtocol {
                         try self.dataManager.loadLandmarks(filename, bundle)
                     })
                 }
+            case let .tabSelected(tab):
+                state.selectedTab = tab
+                return .none
             case let .loadLandmarksResponse(.success(landmarks)):
                 state.landmarks = landmarks
                 return .none
