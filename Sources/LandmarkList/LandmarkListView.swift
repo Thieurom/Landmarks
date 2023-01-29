@@ -22,7 +22,7 @@ public struct LandmarkListView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
                 List {
-                    ForEach(viewStore.landmarks) { landmark in
+                    ForEach(viewStore.filteredLanmarks) { landmark in
                         NavigationLink(
                             destination: IfLetStore(
                                 store.scope(
@@ -43,7 +43,36 @@ public struct LandmarkListView: View {
                         )
                     }
                 }
-                .navigationTitle("Landmarks")
+                .navigationTitle(viewStore.title)
+                .toolbar {
+                    ToolbarItem {
+                        Menu {
+                            Picker(
+                                "Category",
+                                selection: viewStore.binding(
+                                    get: \.filter,
+                                    send: LandmarkList.Action.filterSelected
+                                )
+                            ) {
+                                ForEach(FilterCategory.allCases) { category in
+                                    Text(category.rawValue).tag(category)
+                                }
+                            }
+                            .pickerStyle(.inline)
+
+                            Toggle(
+                                isOn: viewStore.binding(
+                                    get: \.showFavoritesOnly,
+                                    send: LandmarkList.Action.favoriteToggled
+                                )
+                            ) {
+                                Label("Favorites only", systemImage: "star.fill")
+                            }
+                        } label: {
+                            Label("Filter", systemImage: "slider.horizontal.3")
+                        }
+                    }
+                }
             }
         }
     }

@@ -14,15 +14,34 @@ extension Landmark: Identifiable {}
 public struct LandmarkList: ReducerProtocol {
 
     public struct State: Equatable {
-        public var landmarks: IdentifiedArrayOf<Landmark>
+        public var landmarks: [Landmark]
+        public var filter = FilterCategory.all
+        public var showFavoritesOnly = false
         public var selectedLandmark: Identified<Landmark.ID, LandmarkDetail.State>?
 
+        public var filteredLanmarks: IdentifiedArrayOf<Landmark> {
+            .init(
+                uniqueElements: landmarks
+                    .filter {
+                        (!showFavoritesOnly || $0.isFavorite)
+                        && (filter == .all || $0.category.rawValue == filter.rawValue)
+                    }
+            )
+        }
+
+        public var title: String {
+            let title = filter == .all ? "Landmarks" : filter.rawValue
+            return showFavoritesOnly ? "Favorite \(title)" : title
+        }
+
         public init(landmarks: [Landmark] = []) {
-            self.landmarks = .init(uniqueElements: landmarks)
+            self.landmarks = landmarks
         }
     }
 
     public enum Action {
+        case filterSelected(FilterCategory)
+        case favoriteToggled
         case setNavigation(selection: Int?)
         case landmark(LandmarkDetail.Action)
     }
@@ -30,8 +49,14 @@ public struct LandmarkList: ReducerProtocol {
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
+            case let .filterSelected(filter):
+                state.filter = filter
+                return .none
+            case .favoriteToggled:
+                state.showFavoritesOnly.toggle()
+                return .none
             case let .setNavigation(selection: .some(id)):
-                state.selectedLandmark = state.landmarks[id: id]
+                state.selectedLandmark = state.filteredLanmarks[id: id]
                     .map { landmark in
                         Identified(
                             LandmarkDetail.State(landmark: landmark),
@@ -51,7 +76,7 @@ public struct LandmarkList: ReducerProtocol {
                     }
                     return copy
                 }
-                state.landmarks = .init(uniqueElements: updatedLandmarks)
+                state.landmarks = updatedLandmarks
                 return .none
             case .landmark:
                 return .none

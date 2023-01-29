@@ -30,11 +30,11 @@ public struct AppFeature: ReducerProtocol {
         public var landmarkList: LandmarkList.State {
             get {
                 var copy = _landmarkList
-                copy.landmarks = .init(uniqueElements: landmarks)
+                copy.landmarks = landmarks
                 return copy
             }
             set {
-                landmarks = newValue.landmarks.elements
+                landmarks = newValue.landmarks
                 _landmarkList = newValue
             }
         }
