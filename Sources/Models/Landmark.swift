@@ -9,6 +9,7 @@ import CoreLocation
 
 public struct Landmark: Equatable {
 
+    public let id: Int
     public let name: String
     public let park: String
     public let state: String
@@ -16,7 +17,8 @@ public struct Landmark: Equatable {
     public let coordinates: Coordinates
     public let imageName: String
 
-    public init(name: String, park: String, state: String, description: String, coordinates: Coordinates, imageName: String) {
+    public init(id: Int, name: String, park: String, state: String, description: String, coordinates: Coordinates, imageName: String) {
+        self.id = id
         self.name = name
         self.park = park
         self.state = state
@@ -28,6 +30,7 @@ public struct Landmark: Equatable {
 
 extension Landmark {
     public static var example: Landmark = .init(
+        id: 1001,
         name: "Turtle Rock",
         park: "Joshua Tree National Park",
         state: "California",

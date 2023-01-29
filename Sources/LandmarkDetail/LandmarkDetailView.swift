@@ -5,12 +5,13 @@
 //  Created by Doan Le Thieu on 28/01/2023.
 //
 
+import Assets
 import ComposableArchitecture
 import SwiftUI
 
 public struct LandmarkDetailView: View {
 
-    let store: StoreOf<LandmarkDetail>
+    private let store: StoreOf<LandmarkDetail>
 
     public init(store: StoreOf<LandmarkDetail>) {
         self.store = store
@@ -22,7 +23,7 @@ public struct LandmarkDetailView: View {
                 MapView(coordinates: viewStore.landmark.coordinates)
                     .frame(height: 300)
 
-                Image(viewStore.landmark.imageName, bundle: .module)
+                ImageAsset(name: viewStore.landmark.imageName).image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 250, height: 250)
@@ -62,6 +63,8 @@ public struct LandmarkDetailView: View {
                 }
                 .padding()
             }
+            .navigationTitle(viewStore.landmark.name)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

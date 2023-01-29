@@ -6,7 +6,7 @@
 //
 
 import ComposableArchitecture
-import LandmarkDetail
+import LandmarkList
 import SwiftUI
 
 public struct AppView: View {
@@ -14,10 +14,10 @@ public struct AppView: View {
     public init() {}
 
     public var body: some View {
-        LandmarkDetailView(
+        LandmarkListView(
             store: Store(
-                initialState: LandmarkDetail.State(landmark: .example),
-                reducer: LandmarkDetail()
+                initialState: LandmarkList.State(),
+                reducer: LandmarkList()
             )
         )
     }
