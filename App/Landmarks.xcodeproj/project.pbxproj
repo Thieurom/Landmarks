@@ -10,7 +10,7 @@
 		D82D4669297E27E2009A0161 /* LandmarksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82D4668297E27E2009A0161 /* LandmarksApp.swift */; };
 		D82D466D297E27E4009A0161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D82D466C297E27E4009A0161 /* Assets.xcassets */; };
 		D84BBF2E29861C0100922FB0 /* landmarkData.json in Resources */ = {isa = PBXBuildFile; fileRef = D84BBF2D29861C0100922FB0 /* landmarkData.json */; };
-		D8AA30C52984C82500AFE0F1 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8AA30C42984C82500AFE0F1 /* AppFeature */; };
+		D8D1C7E0298ABB3E0051E4A6 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = D8D1C7DF298ABB3E0051E4A6 /* AppFeature */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8AA30C52984C82500AFE0F1 /* AppFeature in Frameworks */,
+				D8D1C7E0298ABB3E0051E4A6 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 			);
 			name = Landmarks;
 			packageProductDependencies = (
-				D8AA30C42984C82500AFE0F1 /* AppFeature */,
+				D8D1C7DF298ABB3E0051E4A6 /* AppFeature */,
 			);
 			productName = Landmarks;
 			productReference = D82D4665297E27E2009A0161 /* Landmarks.app */;
@@ -346,7 +346,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D8AA30C42984C82500AFE0F1 /* AppFeature */ = {
+		D8D1C7DF298ABB3E0051E4A6 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
 		};

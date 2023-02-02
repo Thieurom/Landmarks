@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import Dependencies
+import Home
 import LandmarkList
 import SwiftUI
 
@@ -21,6 +22,17 @@ public struct AppView: View {
     public var body: some View {
         WithViewStore(store, observe: \.selectedTab) { viewStore in
             TabView(selection: viewStore.binding(send: AppFeature.Action.tabSelected)) {
+                HomeView(
+                    store: store.scope(
+                        state: \.home,
+                        action: AppFeature.Action.home
+                    )
+                )
+                .tabItem {
+                    Label("Featured", systemImage: "star")
+                }
+                .tag(AppFeature.State.Tab.home)
+
                 LandmarkListView(
                     store: store.scope(
                         state: \.landmarkList,

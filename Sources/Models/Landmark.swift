@@ -40,6 +40,8 @@ public struct Landmark: Equatable, Decodable {
     }
 }
 
+extension Landmark: Identifiable {}
+
 extension Landmark {
     public static var sampleData: [Landmark] = [
     .init(

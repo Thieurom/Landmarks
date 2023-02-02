@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "AppFeature", targets: ["AppFeature"]),
         .library(name: "Assets", targets: ["Assets"]),
         .library(name: "DataManager", targets: ["DataManager"]),
+        .library(name: "Home", targets: ["Home"]),
         .library(name: "LandmarkDetail", targets: ["LandmarkDetail"]),
         .library(name: "LandmarkList", targets: ["LandmarkList"]),
         .library(name: "Models", targets: ["Models"])
@@ -22,6 +23,7 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 "DataManager",
+                "Home",
                 "LandmarkList",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
@@ -34,6 +36,15 @@ let package = Package(
             name: "DataManager",
             dependencies: [
                 "Models"
+            ]
+        ),
+        .target(
+            name: "Home",
+            dependencies: [
+                "Assets",
+                "LandmarkDetail",
+                "Models",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
         .target(

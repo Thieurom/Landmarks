@@ -58,7 +58,7 @@ public struct LandmarkDetailView: View {
 
                     Divider()
 
-                    Text("About Turtle Rock")
+                    Text("About \(viewStore.landmark.name)")
                         .font(.title2)
                     Text(viewStore.landmark.description)
                 }

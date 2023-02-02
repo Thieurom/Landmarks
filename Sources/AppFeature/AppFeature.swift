@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import DataManager
 import Foundation
+import Home
 import LandmarkList
 import Models
 
@@ -18,13 +19,27 @@ public struct AppFeature: ReducerProtocol {
     public struct State: Equatable {
 
         public enum Tab {
+            case home
             case list
         }
 
         public let dataPath: String
         public let dataBundle: Bundle
         public var landmarks: [Landmark] = []
-        public var selectedTab = Tab.list
+        public var selectedTab = Tab.home
+
+        private var _home: Home.State = .init()
+        public var home: Home.State {
+            get {
+                var copy = _home
+                copy.landmarks = landmarks
+                return copy
+            }
+            set {
+                landmarks = newValue.landmarks
+                _home = newValue
+            }
+        }
 
         private var _landmarkList: LandmarkList.State = .init()
         public var landmarkList: LandmarkList.State {
@@ -49,10 +64,15 @@ public struct AppFeature: ReducerProtocol {
         case onAppear
         case tabSelected(State.Tab)
         case loadLandmarksResponse(TaskResult<[Landmark]>)
+        case home(Home.Action)
         case landmarkList(LandmarkList.Action)
     }
 
     public var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.home, action: /Action.home) {
+            Home()
+        }
+
         Scope(state: \.landmarkList, action: /Action.landmarkList) {
             LandmarkList()
         }
@@ -74,6 +94,8 @@ public struct AppFeature: ReducerProtocol {
                 state.landmarks = landmarks
                 return .none
             case .loadLandmarksResponse(.failure):
+                return .none
+            case .home:
                 return .none
             case .landmarkList:
                 return .none

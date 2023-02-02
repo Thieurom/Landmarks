@@ -9,8 +9,6 @@ import ComposableArchitecture
 import LandmarkDetail
 import Models
 
-extension Landmark: Identifiable {}
-
 public struct LandmarkList: ReducerProtocol {
 
     public struct State: Equatable {
