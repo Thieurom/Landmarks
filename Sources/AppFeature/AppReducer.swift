@@ -1,5 +1,5 @@
 //
-//  App.swift
+//  AppReducer.swift
 //  
 //
 //  Created by Doan Le Thieu on 29/01/2023.
@@ -14,7 +14,7 @@ import Models
 
 extension Bundle: @unchecked Sendable {}
 
-public struct AppFeature: ReducerProtocol {
+public struct AppReducer: ReducerProtocol {
 
     public struct State: Equatable {
 

@@ -15,8 +15,8 @@ struct LandmarksApp: App {
         WindowGroup {
             AppView(
                 store: Store(
-                    initialState: AppFeature.State(dataPath: "landmarkData.json", dataBundle: .main),
-                    reducer: AppFeature()
+                    initialState: AppReducer.State(dataPath: "landmarkData.json", dataBundle: .main),
+                    reducer: AppReducer()
                 )
             )
         }
