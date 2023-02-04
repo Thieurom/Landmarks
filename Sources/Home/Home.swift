@@ -18,6 +18,11 @@ public struct Home: ReducerProtocol {
                     featureIndex = newValue.isEmpty ? nil : 0
                 }
             }
+            didSet {
+                if let landmark = landmarks.first(where: { $0.id == selectedLandmark?.landmark.id }) {
+                    selectedLandmark = LandmarkDetail.State(landmark: landmark)
+                }
+            }
         }
 
         public var featureIndex: Int?
@@ -61,6 +66,17 @@ public struct Home: ReducerProtocol {
                 return .none
             case .setNavigation(selection: .none):
                 state.selectedLandmark = nil
+                return .none
+            case .landmark(.favoriteButtonTapped):
+                let updatedLandmarks = state.landmarks.map { landmark in
+                    var copy = landmark
+                    if let selectedLandmark = state.selectedLandmark?.landmark,
+                       copy.id == selectedLandmark.id {
+                        copy.isFavorite = selectedLandmark.isFavorite
+                    }
+                    return copy
+                }
+                state.landmarks = updatedLandmarks
                 return .none
             case .landmark:
                 return .none

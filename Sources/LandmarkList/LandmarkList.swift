@@ -12,7 +12,14 @@ import Models
 public struct LandmarkList: ReducerProtocol {
 
     public struct State: Equatable {
-        public var landmarks: [Landmark]
+        public var landmarks: [Landmark] {
+            didSet {
+                if let landmark = landmarks.first(where: { $0.id == selectedLandmark?.id }) {
+                    selectedLandmark = .init(LandmarkDetail.State(landmark: landmark), id: landmark.id)
+                }
+            }
+        }
+
         public var filter = FilterCategory.all
         public var showFavoritesOnly = false
         public var selectedLandmark: Identified<Landmark.ID, LandmarkDetail.State>?
