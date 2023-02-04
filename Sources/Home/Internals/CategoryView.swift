@@ -5,8 +5,8 @@
 //  Created by Doan Le Thieu on 29/01/2023.
 //
 
-import Assets
 import Models
+import Styleguide
 import SwiftUI
 
 struct CategoryView<Destination>: View where Destination: View {

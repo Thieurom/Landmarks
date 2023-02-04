@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.iOS(.v15)],
     products: [
         .library(name: "AppFeature", targets: ["AppFeature"]),
-        .library(name: "Assets", targets: ["Assets"]),
+        .library(name: "Styleguide", targets: ["Styleguide"]),
         .library(name: "DataManager", targets: ["DataManager"]),
         .library(name: "Home", targets: ["Home"]),
         .library(name: "LandmarkDetail", targets: ["LandmarkDetail"]),
@@ -29,7 +29,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "Assets",
+            name: "Styleguide",
             dependencies: []
         ),
         .target(
@@ -41,7 +41,7 @@ let package = Package(
         .target(
             name: "Home",
             dependencies: [
-                "Assets",
+                "Styleguide",
                 "LandmarkDetail",
                 "Models",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -50,7 +50,7 @@ let package = Package(
         .target(
             name: "LandmarkDetail",
             dependencies: [
-                "Assets",
+                "Styleguide",
                 "Models",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
@@ -58,7 +58,7 @@ let package = Package(
         .target(
             name: "LandmarkList",
             dependencies: [
-                "Assets",
+                "Styleguide",
                 "DataManager",
                 "Models",
                 "LandmarkDetail",

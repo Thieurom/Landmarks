@@ -5,9 +5,9 @@
 //  Created by Doan Le Thieu on 28/01/2023.
 //
 
-import Assets
 import ComposableArchitecture
 import Models
+import Styleguide
 import SwiftUI
 
 public struct LandmarkDetailView: View {

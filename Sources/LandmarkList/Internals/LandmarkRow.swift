@@ -5,9 +5,9 @@
 //  Created by Doan Le Thieu on 28/01/2023.
 //
 
-import Assets
 import LandmarkDetail
 import Models
+import Styleguide
 import SwiftUI
 
 struct LandmarkRow: View {

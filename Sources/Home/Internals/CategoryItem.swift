@@ -5,8 +5,8 @@
 //  Created by Doan Le Thieu on 01/02/2023.
 //
 
-import Assets
 import Models
+import Styleguide
 import SwiftUI
 
 struct CategoryItem: View {

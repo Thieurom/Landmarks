@@ -5,10 +5,10 @@
 //  Created by Doan Le Thieu on 29/01/2023.
 //
 
-import Assets
 import ComposableArchitecture
 import LandmarkDetail
 import Models
+import Styleguide
 import SwiftUI
 
 public struct HomeView: View {
@@ -23,6 +23,16 @@ public struct HomeView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
                 List {
+                    PageView(
+                        pages: viewStore.features.map(FeatureView.init),
+                        currentPage: viewStore.binding(
+                            get: \.featureIndex,
+                            send: Home.Action.featureIndexChanged
+                        )
+                    )
+                    .aspectRatio(3 / 2, contentMode: .fit)
+                    .listRowInsets(EdgeInsets())
+
                     ForEach(viewStore.categories.keys.sorted { $0.rawValue < $1.rawValue }, id: \.self) { category in
                         CategoryView(
                             category: category,
