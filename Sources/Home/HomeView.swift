@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import LandmarkDetail
 import Models
+import ProfileFeature
 import Styleguide
 import SwiftUI
 
@@ -55,6 +56,28 @@ public struct HomeView: View {
                 }
                 .listStyle(.inset)
                 .navigationTitle("Featured")
+                .toolbar {
+                    Button {
+                        viewStore.send(.setSheet(isPresented: true))
+                    } label: {
+                        Label("User Profile", systemImage: "person.crop.circle")
+                    }
+                    .id(UUID()) // Hack to fix sheet is presented only once
+                }
+                .sheet(
+                    isPresented: viewStore.binding(
+                        get: \.isSheetPresented,
+                        send: Home.Action.setSheet(isPresented:))
+                ) {
+                    IfLetStore(
+                        self.store.scope(
+                            state: \.profile,
+                            action: Home.Action.profile
+                        )
+                    ) {
+                        ProfileView(store: $0)
+                    }
+                }
             }
         }
     }

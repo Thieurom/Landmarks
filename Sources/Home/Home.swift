@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import LandmarkDetail
 import Models
+import ProfileFeature
 
 public struct Home: ReducerProtocol {
 
@@ -27,6 +28,8 @@ public struct Home: ReducerProtocol {
 
         public var featureIndex: Int?
         public var selectedLandmark: LandmarkDetail.State?
+        public var profile: ProfileFeature.State?
+        public var isSheetPresented = false
 
         public init(landmarks: [Landmark] = []) {
             self.landmarks = landmarks
@@ -48,7 +51,9 @@ public struct Home: ReducerProtocol {
     public enum Action {
         case featureIndexChanged(Int?)
         case setNavigation(selection: Int?)
+        case setSheet(isPresented: Bool)
         case landmark(LandmarkDetail.Action)
+        case profile(ProfileFeature.Action)
     }
 
     public init() {}
@@ -67,6 +72,14 @@ public struct Home: ReducerProtocol {
             case .setNavigation(selection: .none):
                 state.selectedLandmark = nil
                 return .none
+            case .setSheet(isPresented: true):
+                state.isSheetPresented = true
+                state.profile = .init()
+                return .none
+            case .setSheet(isPresented: false):
+                state.isSheetPresented = false
+                state.profile = nil
+                return .none
             case .landmark(.favoriteButtonTapped):
                 let updatedLandmarks = state.landmarks.map { landmark in
                     var copy = landmark
@@ -80,12 +93,15 @@ public struct Home: ReducerProtocol {
                 return .none
             case .landmark:
                 return .none
+            case .profile:
+                return .none
             }
         }
         .ifLet(\.selectedLandmark, action: /Action.landmark) {
-            Scope(state: /.self, action: /.self) {
-                LandmarkDetail()
-            }
+            LandmarkDetail()
+        }
+        .ifLet(\.profile, action: /Action.profile) {
+            ProfileFeature()
         }
     }
 }
