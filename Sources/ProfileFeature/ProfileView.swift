@@ -23,6 +23,7 @@ public struct ProfileView: View {
             NavigationView {
                 List {
                     ProfileSummary(profile: viewStore.profile)
+                    BadgesView()
                 }
                 .listStyle(.plain)
                 .navigationTitle("")
