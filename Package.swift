@@ -92,6 +92,10 @@ let package = Package(
         .testTarget(
             name: "AppFeatureTests",
             dependencies: ["AppFeature"]
+        ),
+        .testTarget(
+            name: "LandmarkDetailTests",
+            dependencies: ["LandmarkDetail"]
         )
     ]
 )
