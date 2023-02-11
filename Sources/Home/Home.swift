@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import LandmarkDetail
 import Models
-import ProfileFeature
+import ProfileDetail
 
 public struct Home: ReducerProtocol {
 
@@ -28,7 +28,9 @@ public struct Home: ReducerProtocol {
 
         public var featureIndex: Int?
         public var selectedLandmark: LandmarkDetail.State?
-        public var profile: ProfileFeature.State?
+
+        public var profile: Profile = .default
+        public var profileDetail: ProfileDetail.State?
         public var isSheetPresented = false
 
         public init(landmarks: [Landmark] = []) {
@@ -53,7 +55,7 @@ public struct Home: ReducerProtocol {
         case setNavigation(selection: Int?)
         case setSheet(isPresented: Bool)
         case landmark(LandmarkDetail.Action)
-        case profile(ProfileFeature.Action)
+        case profileDetail(ProfileDetail.Action)
     }
 
     public init() {}
@@ -74,11 +76,11 @@ public struct Home: ReducerProtocol {
                 return .none
             case .setSheet(isPresented: true):
                 state.isSheetPresented = true
-                state.profile = .init()
+                state.profileDetail = ProfileDetail.State(profile: state.profile)
                 return .none
             case .setSheet(isPresented: false):
                 state.isSheetPresented = false
-                state.profile = nil
+                state.profileDetail = nil
                 return .none
             case .landmark(.favoriteButtonTapped):
                 let updatedLandmarks = state.landmarks.map { landmark in
@@ -93,15 +95,20 @@ public struct Home: ReducerProtocol {
                 return .none
             case .landmark:
                 return .none
-            case .profile:
+            case .profileDetail(.doneButtonTapped):
+                if let updatedProfile = state.profileDetail?.profile {
+                    state.profile = updatedProfile
+                }
+                return .none
+            case .profileDetail:
                 return .none
             }
         }
         .ifLet(\.selectedLandmark, action: /Action.landmark) {
             LandmarkDetail()
         }
-        .ifLet(\.profile, action: /Action.profile) {
-            ProfileFeature()
+        .ifLet(\.profileDetail, action: /Action.profileDetail) {
+            ProfileDetail()
         }
     }
 }

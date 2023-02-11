@@ -35,7 +35,7 @@ public struct LandmarkListView: View {
                             tag: landmark.id,
                             selection: viewStore.binding(
                                 get: \.selectedLandmark?.id,
-                                send: LandmarkList.Action.setNavigation(selection:)
+                                send: LandmarkList.Action.setNavigation
                             ),
                             label: {
                                 LandmarkRow(landmark: landmark)

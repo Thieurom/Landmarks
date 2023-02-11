@@ -15,7 +15,7 @@ struct PageView<Page: View>: View {
     @Binding var currentPage: Int?
 
     var body: some View {
-        if !pages.isEmpty {
+        RenderIf(!pages.isEmpty) {
             ZStack(alignment: .bottomTrailing) {
                 PageViewController(pages: pages, currentPage: $currentPage)
                 PageControl(numberOfPages: pages.count, currentPage: $currentPage)

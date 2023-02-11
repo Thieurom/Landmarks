@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import LandmarkDetail
 import Models
-import ProfileFeature
+import ProfileDetail
 import Styleguide
 import SwiftUI
 
@@ -40,7 +40,7 @@ public struct HomeView: View {
                             items: viewStore.categories[category]!,
                             selection: viewStore.binding(
                                 get: \.selectedLandmark?.landmark.id,
-                                send: Home.Action.setNavigation(selection:)
+                                send: Home.Action.setNavigation
                             ),
                             destination: IfLetStore(
                                 store.scope(
@@ -64,18 +64,17 @@ public struct HomeView: View {
                     }
                     .id(UUID()) // Hack to fix sheet is presented only once
                 }
-                .sheet(
-                    isPresented: viewStore.binding(
-                        get: \.isSheetPresented,
-                        send: Home.Action.setSheet(isPresented:))
-                ) {
+                .sheet(isPresented: viewStore.binding(
+                    get: \.isSheetPresented,
+                    send: Home.Action.setSheet
+                )) {
                     IfLetStore(
                         self.store.scope(
-                            state: \.profile,
-                            action: Home.Action.profile
+                            state: \.profileDetail,
+                            action: Home.Action.profileDetail
                         )
                     ) {
-                        ProfileView(store: $0)
+                        ProfileDetailView(store: $0)
                     }
                 }
             }
