@@ -14,8 +14,7 @@ let package = Package(
         .library(name: "LandmarkDetail", targets: ["LandmarkDetail"]),
         .library(name: "LandmarkList", targets: ["LandmarkList"]),
         .library(name: "Models", targets: ["Models"]),
-        .library(name: "ProfileDetail", targets: ["ProfileDetail"]),
-        .library(name: "ProfileEditor", targets: ["ProfileEditor"])
+        .library(name: "ProfileDetail", targets: ["ProfileDetail"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.50.0")
@@ -77,15 +76,6 @@ let package = Package(
             dependencies: [
                 "Styleguide",
                 "Models",
-                "ProfileEditor",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]
-        ),
-        .target(
-            name: "ProfileEditor",
-            dependencies: [
-                "Styleguide",
-                "Models",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]
         ),
@@ -103,6 +93,10 @@ let package = Package(
                 "Models",
                 "LandmarkList"
             ]
+        ),
+        .testTarget(
+            name: "ProfileDetailTests",
+            dependencies: ["ProfileDetail"]
         )
     ]
 )
