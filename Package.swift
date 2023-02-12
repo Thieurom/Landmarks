@@ -96,6 +96,13 @@ let package = Package(
         .testTarget(
             name: "LandmarkDetailTests",
             dependencies: ["LandmarkDetail"]
+        ),
+        .testTarget(
+            name: "LandmarkListTests",
+            dependencies: [
+                "Models",
+                "LandmarkList"
+            ]
         )
     ]
 )

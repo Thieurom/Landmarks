@@ -9,9 +9,10 @@ import ComposableArchitecture
 import XCTest
 @testable import LandmarkDetail
 
+@MainActor
 final class LandmarkDetailTests: XCTestCase {
 
-    func testToggleFavorite() {
+    func testToggleFavorite() async {
         let state = LandmarkDetail.State(
             landmark: .init(
                 id: 1,
@@ -32,11 +33,11 @@ final class LandmarkDetailTests: XCTestCase {
             reducer: LandmarkDetail()
         )
 
-        store.send(.favoriteButtonTapped) {
+        await store.send(.favoriteButtonTapped) {
             $0.landmark.isFavorite = true
         }
 
-        store.send(.favoriteButtonTapped) {
+        await store.send(.favoriteButtonTapped) {
             $0.landmark.isFavorite = false
         }
     }
