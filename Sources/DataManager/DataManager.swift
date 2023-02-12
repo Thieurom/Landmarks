@@ -54,6 +54,10 @@ extension DataManager: DependencyKey {
         }
     )
 
+    public static let testValue = DataManager(
+        loadLandmarks: unimplemented("\(Self.self).loadLandmarks")
+    )
+
     public static let mock = DataManager(
         loadLandmarks: { _, _ in
             return Landmark.sampleData

@@ -80,9 +80,7 @@ public struct AppReducer: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                let filename = state.dataPath
-                let bundle = state.dataBundle
-                return .task {
+                return .task { [filename = state.dataPath, bundle = state.dataBundle] in
                     await .loadLandmarksResponse(TaskResult {
                         try self.dataManager.loadLandmarks(filename, bundle)
                     })
