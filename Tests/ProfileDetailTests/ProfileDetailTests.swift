@@ -7,8 +7,8 @@
 
 import ComposableArchitecture
 import Models
-import ProfileDetail
 import XCTest
+@testable import ProfileDetail
 
 @MainActor
 final class ProfileDetailTests: XCTestCase {
