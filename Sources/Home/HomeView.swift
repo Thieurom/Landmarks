@@ -12,6 +12,7 @@ import ProfileDetail
 import Styleguide
 import SwiftUI
 
+#if os(iOS)
 public struct HomeView: View {
 
     private let store: StoreOf<Home>
@@ -92,3 +93,4 @@ struct HomeView_Previews: PreviewProvider {
         )
     }
 }
+#endif

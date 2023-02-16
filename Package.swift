@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Landmarks",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: [
         .library(name: "AppFeature", targets: ["AppFeature"]),
         .library(name: "Styleguide", targets: ["Styleguide"]),
@@ -17,7 +17,8 @@ let package = Package(
         .library(name: "ProfileDetail", targets: ["ProfileDetail"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.50.0")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.50.0"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4")
     ],
     targets: [
         .target(
@@ -36,7 +37,8 @@ let package = Package(
         .target(
             name: "DataManager",
             dependencies: [
-                "Models"
+                "Models",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .target(

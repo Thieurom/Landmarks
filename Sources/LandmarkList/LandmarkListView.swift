@@ -22,6 +22,15 @@ public struct LandmarkListView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
                 List {
+                    Toggle(
+                        isOn: viewStore.binding(
+                            get: \.showFavoritesOnly,
+                            send: LandmarkList.Action.favoriteToggled
+                        )
+                    ) {
+                        Text("Favorites only")
+                    }
+
                     ForEach(viewStore.filteredLanmarks) { landmark in
                         NavigationLink(
                             destination: IfLetStore(
@@ -44,6 +53,7 @@ public struct LandmarkListView: View {
                     }
                 }
                 .navigationTitle(viewStore.title)
+                .frame(minWidth: 300)
                 .toolbar {
                     ToolbarItem {
                         Menu {
@@ -73,6 +83,8 @@ public struct LandmarkListView: View {
                         }
                     }
                 }
+
+                Text("Select a Landmark")
             }
         }
     }

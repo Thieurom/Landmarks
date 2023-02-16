@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+#if canImport(UIKit)
 import UIKit
 
 public struct PageViewController<Page: View>: UIViewControllerRepresentable {
@@ -87,3 +89,4 @@ public struct PageViewController<Page: View>: UIViewControllerRepresentable {
         }
     }
 }
+#endif

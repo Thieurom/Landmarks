@@ -10,6 +10,7 @@ import Models
 import Styleguide
 import SwiftUI
 
+#if os(iOS)
 public struct ProfileDetailView: View {
 
     private let store: StoreOf<ProfileDetail>
@@ -75,3 +76,4 @@ struct ProfileDetailView_Previews: PreviewProvider {
         )
     }
 }
+#endif

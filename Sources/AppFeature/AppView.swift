@@ -11,6 +11,7 @@ import Home
 import LandmarkList
 import SwiftUI
 
+#if os(iOS)
 public struct AppView: View {
 
     private let store: StoreOf<AppReducer>
@@ -56,12 +57,11 @@ struct AppView_Previews: PreviewProvider {
         AppView(
             store: Store(
                 initialState: AppReducer.State(dataPath: "", dataBundle: .main),
-                reducer: withDependencies {
-                    $0.dataManager = .mock
-                } operation: {
-                    AppReducer()
-                }
-            )
+                reducer: AppReducer()
+            ) {
+                $0.dataManager = .mock
+            }
         )
     }
 }
+#endif

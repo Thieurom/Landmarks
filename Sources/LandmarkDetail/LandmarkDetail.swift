@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import MapKit
 import Models
 
 public struct LandmarkDetail: ReducerProtocol {
@@ -21,6 +22,7 @@ public struct LandmarkDetail: ReducerProtocol {
 
     public enum Action {
         case favoriteButtonTapped
+        case openInMapsButtonTapped
     }
 
     public init() {}
@@ -29,6 +31,18 @@ public struct LandmarkDetail: ReducerProtocol {
         switch action {
         case .favoriteButtonTapped:
             state.landmark.isFavorite.toggle()
+            return .none
+        case .openInMapsButtonTapped:
+            let destination = MKMapItem(
+                placemark: MKPlacemark(
+                    coordinate: .init(
+                        latitude: state.landmark.coordinates.latitude,
+                        longitude: state.landmark.coordinates.longitude
+                    )
+                )
+            )
+            destination.name = state.landmark.name
+            destination.openInMaps()
             return .none
         }
     }

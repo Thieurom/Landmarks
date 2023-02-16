@@ -9,6 +9,7 @@ import Models
 import Styleguide
 import SwiftUI
 
+#if os(iOS)
 struct PageView<Page: View>: View {
 
     var pages: [Page]
@@ -35,3 +36,4 @@ struct PageView_Previews: PreviewProvider {
         .aspectRatio(3 / 2, contentMode: .fit)
     }
 }
+#endif
