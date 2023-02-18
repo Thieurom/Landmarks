@@ -7,7 +7,7 @@ import XCTest
 @testable import AppFeature
 
 @MainActor
-final class AppFeatureTests: XCTestCase {
+final class AppReducerTests: XCTestCase {
 
     let landmarks: [Landmark] = [
         .init(

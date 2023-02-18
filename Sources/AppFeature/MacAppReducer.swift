@@ -19,16 +19,49 @@ public struct MacAppReducer: ReducerProtocol {
         public let dataBundle: Bundle
         public var landmarkList: LandmarkList.State = .init()
 
+        public var selectedLandmark: Landmark? {
+            get {
+                landmarkList.selectedLandmark?.value.landmark
+            }
+            set {
+                landmarkList.landmarks = landmarkList.landmarks
+                    .map { landmark in
+                        guard let newValue = newValue, landmark.id == newValue.id else {
+                            return landmark
+                        }
+
+                        var copy = landmark
+                        copy.isFavorite = newValue.isFavorite
+                        return copy
+                    }
+            }
+        }
+
         public init(dataPath: String, dataBundle: Bundle) {
             self.dataPath = dataPath
             self.dataBundle = dataBundle
         }
     }
 
+    public struct SceneState: Equatable {
+        public let favoriteCommandTitle: String
+        public let isFavoriteCommandEnabled: Bool
+
+        public init(state: State) {
+            self.favoriteCommandTitle = "\(state.selectedLandmark?.isFavorite == true ? "Remove" : "Mark") as Favorite"
+            self.isFavoriteCommandEnabled = state.selectedLandmark != nil
+        }
+    }
+
+    public enum CommandAction {
+        case landmarkFavoriteToggled
+    }
+
     public enum Action {
         case onAppear
         case loadLandmarksResponse(TaskResult<[Landmark]>)
         case landmarkList(LandmarkList.Action)
+        case commands(CommandAction)
     }
 
     public var body: some ReducerProtocol<State, Action> {
@@ -50,6 +83,9 @@ public struct MacAppReducer: ReducerProtocol {
             case .loadLandmarksResponse(.failure):
                 return .none
             case .landmarkList:
+                return .none
+            case .commands(.landmarkFavoriteToggled):
+                state.selectedLandmark?.isFavorite.toggle()
                 return .none
             }
         }

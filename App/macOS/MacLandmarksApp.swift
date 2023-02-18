@@ -11,14 +11,16 @@ import SwiftUI
 
 @main
 struct MacLandmarksApp: App {
+
     var body: some Scene {
-        WindowGroup {
-            MacAppView(
-                store: Store(
-                    initialState: MacAppReducer.State(dataPath: "landmarkData.json", dataBundle: .main),
-                    reducer: MacAppReducer()
-                )
+        MacAppScene(
+            store: Store(
+                initialState: MacAppReducer.State(
+                    dataPath: "landmarkData.json",
+                    dataBundle: .main
+                ),
+                reducer: MacAppReducer()
             )
-        }
+        )
     }
 }
