@@ -32,7 +32,8 @@ let package = Package(
         ),
         .target(
             name: "Styleguide",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("Resources")]
         ),
         .target(
             name: "DataManager",
