@@ -1,0 +1,45 @@
+name: Build iOS artifact for the Simulator
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch or ref to build
+        required: true
+        default: main
+
+jobs:
+  build_simulator_artifact:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild \
+            -project App/Landmarks.xcodeproj \
+            -scheme Landmarks \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -derivedDataPath build \
+            clean build
+
+      - name: Zip .app
+        run: |
+          cd build/Build/Products/Debug-iphonesimulator
+          zip -r Landmarks.app.zip Landmarks.app
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Landmarks-iOS
+          path: build/Build/Products/Debug-iphonesimulator/Landmarks.app.zip
+          retention-days: 5
