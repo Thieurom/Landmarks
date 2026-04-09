@@ -14,15 +14,19 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.branch }}
 
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode.app
 
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
       - name: Build for iOS Simulator
         run: |
+          set -o pipefail
           xcodebuild \
             -project App/Landmarks.xcodeproj \
             -scheme Landmarks \
@@ -30,7 +34,7 @@ jobs:
             -configuration Debug \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
             -derivedDataPath build \
-            clean build
+            clean build | xcbeautify
 
       - name: Zip .app
         run: |
@@ -38,7 +42,7 @@ jobs:
           zip -r Landmarks.app.zip Landmarks.app
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: Landmarks-iOS
           path: build/Build/Products/Debug-iphonesimulator/Landmarks.app.zip
